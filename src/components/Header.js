@@ -1,19 +1,59 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
-const Header = () => {
-  return (
-    <header className='header'>
-      <div className='header-container'>
-        <Link to='/news'> <img className='header-icon' src='https://image.flaticon.com/icons/svg/1074/1074055.svg' /> </Link>
-      </div>
+class Header extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      time: ''
+    }
+    
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      const newTime = moment().format('MMMM Do YYYY, h:mm:ss a')
+      this.setState({ time: newTime })
+    }, 1000)
+  }
+  
+  
+  
+
+  
+  
+  
+
+  render() {
+
+  
+
+    return (
+     
+      <header className='header'>
 
 
-      <div className='header-container'>
-        <Link to='/coins'> <img className='header-icon' src='https://image.flaticon.com/icons/svg/2422/2422787.svg' /> </Link>
-      </div>
-    </header>
-  )
+        <div className='header-container'>
+          <Link to='/news'> <li> News </li> </Link>
+        </div>
+
+        <div className='header-container'>
+          <Link to='/coins'> <li> Market Data </li> </Link>
+        </div>
+
+        <div id='time-contain' className='header-container'>
+          <p id='time'>{this.state.time}</p> 
+        </div>
+    
+        
+      </header>
+
+
+
+    )
+  }
 }
 
 export default Header

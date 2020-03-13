@@ -1,20 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const HomePage = () => {
+
+
+const HomePage = () => {  
+
   return (
     <main>
-
-      <div className='homepage-container'>
-        <Link to='/news'> <img className='news-icon' src='https://image.flaticon.com/icons/svg/1074/1074055.svg' /> </Link>
-        News
-      </div>
+      
+      {/* <img id='cover-image' src='https://media0.giphy.com/media/U4FkC2VqpeNRHjTDQ5/giphy.gif?cid=ecf05e4772191dda4a13943c68d9c19473145da69abaf3f5&rid=giphy.gif' /> */}
 
 
       <div className='homepage-container'>
-        <Link to='/coins'> <img className='market-icon' src='https://image.flaticon.com/icons/svg/2422/2422787.svg' /> </Link>
-        Market Data
+        <Link to='/news'> <button>CRYPTOGRAPHY AT YOUR FINGERTIPS</button></Link>
       </div>
+
 
     </main>
 
