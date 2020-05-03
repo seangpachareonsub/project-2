@@ -53,158 +53,50 @@ class HomePage extends React.Component {
       })
   }
 
-  callSort(event) {
+  callSort(e) {
 
-    if (event.target.name === 'Rank') {
-      this.setState({ exchanges: this.state.exchanges.sort(this.rankSort) })
-    } else if (event.target.name === 'name') {
-      this.setState({ exchanges: this.state.exchanges.sort(this.idSort) })
-    } else if (event.target.name === 'Market Cap') {
-      this.setState({ exchanges: this.state.exchanges.sort(this.marketCapSort) })
-    } else if (event.target.name === 'Price') {
-      this.setState({ exchanges: this.state.exchanges.sort(this.priceSort) })
-    } else if (event.target.name === 'Total Volume') {
-      this.setState({ exchanges: this.state.exchanges.sort(this.totalVolumeSort) })
-    } else if (event.target.name === 'Circulating Supply') {
-      this.setState({ exchanges: this.state.exchanges.sort(this.supplySort) })
-    } else if (event.target.name === 'Market Cap Change (24h)') {
-      this.setState({ exchanges: this.state.exchanges.sort(this.dayChangeSort) })
+    const keys =  ['market_cap_rank', 'name', 'market_cap', 'current_price', 'total_volume', 'circulating_supply', 'market_cap_change_percentage_24h']
+    const { exchanges, headings } = this.state
+    const heading = keys[headings.indexOf(e.target.name)]
+    const { value } = e.target
+
+    switch (value) {
+      case 'descending':
+        this.setState({ exchanges: exchanges.sort((a, b) => b[heading] - a[heading]) })
+        break
+
+      case 'ascending':
+        this.setState({ exchanges: exchanges.sort((a, b) => a[heading] - b[heading]) })
+        break
+
+      case 'a-z':
+        this.setState({ exchanges: exchanges.sort((a,b) => a[heading].localeCompare(b[heading])) })
+        break
+
+      case 'z-a':
+        this.setState({ exchanges: exchanges.sort((a,b) => b[heading].localeCompare(a[heading])) })
+        break
     }
   }
 
-  rankSort(a, b) {
-    const rankA = a.market_cap_rank
-    const rankB = b.market_cap_rank
-    const filter = document.getElementsByClassName('Rank')[0]
-
-    if (filter.value === 'ascending') {
-      return rankA - rankB
-
-    } else {
-      return rankB - rankA
-    }
-  }
-
-  dayChangeSort(a, b) {
-
-    const marketCapA = a.market_cap_change_percentage_24h
-    const marketCapB = b.market_cap_change_percentage_24h
-    const filter = document.getElementsByClassName('Market Cap Change (24h)')[0]
-
-    if (filter.value === 'ascending') {
-      return marketCapA - marketCapB
-
-    } else {
-      return marketCapB - marketCapA
-    }
-
-  }
-
-  supplySort(a, b) {
-
-    const marketCapA = a.circulating_supply
-    const marketCapB = b.circulating_supply
-    const filter = document.getElementsByClassName('Circulating Supply')[0]
-
-    if (filter.value === 'ascending') {
-      return marketCapA - marketCapB
-
-    } else {
-      return marketCapB - marketCapA
-    }
-
-  }
-
-  priceSort(a, b) {
-
-    const marketCapA = a.current_price
-    const marketCapB = b.current_price
-    const filter = document.getElementsByClassName('Price')[0]
-
-    if (filter.value === 'ascending') {
-      return marketCapA - marketCapB
-
-    } else {
-      return marketCapB - marketCapA
-    }
-
-  }
-
-  totalVolumeSort(a, b) {
 
 
-    const marketCapA = a.total_volume
-    const marketCapB = b.total_volume
-    const filter = document.getElementsByClassName('Total Volume')[0]
-
-    if (filter.value === 'ascending') {
-      return marketCapA - marketCapB
-    } else {
-      return marketCapB - marketCapA
-    }
-
-  }
-
-  // handle sort for marketcap
-  marketCapSort(a, b) {
 
 
-    const marketCapA = a.market_cap
-    const marketCapB = b.market_cap
-    const filter = document.getElementsByClassName('Market Cap')[0]
 
-    if (filter.value === 'ascending') {
-      return marketCapA - marketCapB
-    } else {
-      return marketCapB - marketCapA
-    }
-
-  }
-
-
-  // handle sort for name
-  idSort(a, b) {
-
-    const idA = a.id.toUpperCase()
-    const idB = b.id.toUpperCase()
-    const filter = document.getElementsByClassName('Name')[0]
-    let comparison = 0
-
-
-    if (filter.value === 'a-z') {
-      if (idA > idB) {
-        comparison = 1
-      } else if (idA < idB) {
-        comparison = -1
-      }
-      return comparison
-    } else {
-      if (idA < idB) {
-        comparison = 1
-      } else if (idA > idB) {
-        comparison = -1
-      }
-
-      return comparison
-
-    }
-  }
 
 
 
 
   toggleModal() {
-    const newModal = !this.state.modalActive
-    this.setState({ modalActive: newModal })
+    this.setState({ modalActive: !this.state.modalActive })
   }
 
 
   render() {
-
     return (
 
       <>
-
         <Header />
 
         <div className="market-container">
@@ -234,18 +126,18 @@ class HomePage extends React.Component {
               {this.state.headings.map((headers, i) => {
                 return (
                   <div key={i}>
-                    <h1 > {headers} </h1>
+                    <h1> {headers} </h1>
 
                     {headers === 'Name' ?
-                      <select name="name"
-                        onChange={(event) => this.callSort(event)}>
+                      <select name='Name'
+                        onChange={(e) => this.callSort(e)}>
                         <option disabled selected>Filter</option>
                         <option value="a-z">A-Z</option>
                         <option value="z-a">Z-A</option>
                       </select>
                       :
                       <select name={headers}
-                        onChange={(event) => this.callSort(event)}>
+                        onChange={(e) => this.callSort(e)}>
                         <option disabled selected>Filter</option>
                         <option value="ascending"> Ascending </option>
                         <option value="descending">Descending</option>
@@ -263,50 +155,41 @@ class HomePage extends React.Component {
           <div key={crypto.id} className="table">
 
             {this.state.exchanges.map((crypto, i) => {
-              if (i < 90) {
+              const { base } = this.state
 
-                return (
+              return (
 
-                  <div className="data-rows" onClick={() => this.handleClick(crypto)}>
+                <div key={i} className="data-rows" onClick={() => this.handleClick(crypto)}>
 
-
-                    <div className="cRank">
-                      <h1> {crypto.market_cap_rank} </h1>
-                    </div>
-
-
-                    <div value={crypto.name} className="cName">
-                      <img src={crypto.image} />
-                      <h1 id='name' style={{ color: '#d49677', fontWeight: 'bold' }}> {crypto.name} </h1>
-                    </div>
-
-
-                    <div className="cCap">
-                      <p> {crypto.market_cap.toLocaleString() + ' ' + this.state.base} </p>
-                    </div>
-
-                    <div className="cPrice">
-                      <p> {crypto.current_price.toFixed(2).toLocaleString() + ' ' + this.state.base} </p>
-                    </div>
-
-                    <div className="cVolume">
-                      <p> {crypto.total_volume.toLocaleString() + ' ' + this.state.base} </p>
-                    </div>
-
-                    <div className="cSupply">
-                      <p> {crypto.circulating_supply.toLocaleString() + ' ' + crypto.symbol.toUpperCase()} </p>
-                    </div>
-
-                    <div className="cChange">
-                      <p style={crypto.market_cap_change_percentage_24h > 0 ? { color: 'lightseagreen' } :
-                        { color: 'red' }}>
-                        {crypto.market_cap_change_percentage_24h.toFixed(2)}% </p>
-                    </div>
-
+                  <div>
+                    <h1> {crypto.market_cap_rank} </h1>
                   </div>
 
-                )
-              }
+
+                  <div value={crypto.name}>
+                    <img src={crypto.image} />
+                    <h1 id='name' style={{ color: '#d49677', fontWeight: 'bold' }}> {crypto.name} </h1>
+                  </div>
+
+
+                  <div> <p> {crypto.market_cap.toLocaleString() + ' ' + base} </p> </div>
+
+                  <div> <p> {crypto.current_price.toFixed(2).toLocaleString() + ' ' + base} </p> </div>
+
+                  <div> <p> {crypto.total_volume.toLocaleString() + ' ' + base} </p> </div>
+
+                  <div>
+                    <p> {crypto.circulating_supply.toLocaleString() + ' ' + crypto.symbol.toUpperCase()} </p>
+                  </div>
+
+                  <div>
+                    <p style={crypto.market_cap_change_percentage_24h > 0 ? { color: 'lightseagreen' } :
+                      { color: 'red' }}> {crypto.market_cap_change_percentage_24h.toFixed(2)}% </p>
+                  </div>
+
+                </div>
+
+              )
             })}
 
           </div>
