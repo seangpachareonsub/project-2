@@ -9,7 +9,7 @@ class Header extends React.Component {
     this.state = {
       time: ''
     }
-    
+
   }
 
   componentDidMount() {
@@ -18,39 +18,29 @@ class Header extends React.Component {
       this.setState({ time: newTime })
     }, 1000)
   }
-  
-  
-  
 
-  
-  
-  
 
   render() {
-
-  
-
     return (
-     
-      <header className='header'>
 
+      <nav>
 
-        <div className='header-container'>
-          <Link to='/news'> <li> News </li> </Link>
+        <div className='logo'>
+          <img id='logo' src="../Screenshot 2020-05-02 at 20.50.55.png" alt=""/>
+          <h1> Financier </h1>
         </div>
 
-        <div className='header-container'>
+        <div className='header-links'>
+          <Link to='/'> <li> News </li> </Link>
           <Link to='/coins'> <li> Market Data </li> </Link>
+
+          <div id='time-contain'>
+            <p id='time'>{this.state.time}</p>
+          </div>
+
         </div>
 
-        <div id='time-contain' className='header-container'>
-          <p id='time'>{this.state.time}</p> 
-        </div>
-    
-        
-      </header>
-
-
+      </nav>
 
     )
   }

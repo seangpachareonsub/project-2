@@ -73,7 +73,7 @@ class HomePage extends React.Component {
     }
   }
 
-  rankSort(a,b) {
+  rankSort(a, b) {
     const rankA = a.market_cap_rank
     const rankB = b.market_cap_rank
     const filter = document.getElementsByClassName('Rank')[0]
@@ -208,106 +208,110 @@ class HomePage extends React.Component {
 
         <Header />
 
-        <div className="market-headers">
-          <div className="base-filters">
-            <label> Base Filter <br />
-              <select onChange={(event) => this.change(event)} id="base">
-                <option value="usd">USD</option>
-                <option value="btc">BTC</option>
-                <option value="eth">ETH</option>
-                <option value="xrp">XRP</option>
-                <option value="bch">BCH</option>
-                <option value="ltc">LTC</option>
-                <option value="jpy">JPY</option>
-                <option value="gbp">GBP</option>
-                <option value="eur">EUR</option>
-              </select>
-            </label>
-          </div>
+        <div className="market-container">
 
-          {this.state.headings.map((headers, i) => {
-            return (
-              <div key={i} className='data-headings'>
-                <h1 > {headers} </h1>
-
-                {headers === 'Name' ?
-                  <select className='Name' name="name"
-                    onChange={(event) => this.callSort(event)}>
-                    <option value="a-z">A-Z</option>
-                    <option value="z-a">Z-A</option>
-                  </select>
-                  :
-                  <select className={headers} name={headers}
-                    onChange={(event) => this.callSort(event)}>
-                    <option value="ascending"> Ascending </option>
-                    <option value="descending">Descending</option>
-                  </select>}
-
-              </div>
-
-            )
-          })}
-
-        </div>
+          <div id='buffer'> buffer </div>
 
 
+          <div className="market-headers">
+            <div className="base-filters">
+              <label> Base Filter <br />
+                <select onChange={(event) => this.change(event)} id="base">
+                  <option value="usd">USD</option>
+                  <option value="btc">BTC</option>
+                  <option value="eth">ETH</option>
+                  <option value="xrp">XRP</option>
+                  <option value="bch">BCH</option>
+                  <option value="ltc">LTC</option>
+                  <option value="jpy">JPY</option>
+                  <option value="gbp">GBP</option>
+                  <option value="eur">EUR</option>
+                </select>
+              </label>
+            </div>
 
-        <div key={crypto.id} className="table">
-
-          {this.state.exchanges.map((crypto, i) => {
-            if (i < 90) {
-
-
-
+            {this.state.headings.map((headers, i) => {
               return (
+                <div key={i} className='data-headings'>
+                  <h1 > {headers} </h1>
 
-                <div className="data-row-container" onClick={() => this.handleClick(crypto)}>
-
-
-                  <div className="cRank">
-                    <h1> {crypto.market_cap_rank} </h1>
-                  </div>
-
-
-                  <div value={crypto.name} className="cName">
-                    <img src={crypto.image} />
-                    <h1 id='name' style={{ color: '#d49677' }}> {crypto.name} </h1>
-                  </div>
-
-
-                  <div className="cCap">
-                    <p> {crypto.market_cap.toLocaleString(navigator.language, { minimumFractionDigits: 0 }) + ' ' + this.state.base} </p>
-                  </div>
-
-                  <div className="cPrice">
-                    <p> {crypto.current_price.toFixed(2).toLocaleString(navigator.language, { minimumFractionDigits: 0 }) + ' ' + this.state.base} </p>
-                  </div>
-
-                  <div className="cVolume">
-                    <p> {crypto.total_volume.toLocaleString(navigator.language, { minimumFractionDigits: 0 }) + ' ' + this.state.base} </p>
-                  </div>
-
-                  <div className="cSupply">
-                    <p> {crypto.circulating_supply.toLocaleString(navigator.language, { minimumFractionDigits: 0 }) + ' ' + crypto.symbol.toUpperCase()} </p>
-                  </div>
-
-                  <div className="cChange">
-                    <p> {crypto.market_cap_change_percentage_24h.toFixed(2)}% </p>
-                  </div>
+                  {headers === 'Name' ?
+                    <select className='Name' name="name"
+                      onChange={(event) => this.callSort(event)}>
+                      <option value="a-z">A-Z</option>
+                      <option value="z-a">Z-A</option>
+                    </select>
+                    :
+                    <select className={headers} name={headers}
+                      onChange={(event) => this.callSort(event)}>
+                      <option value="ascending"> Ascending </option>
+                      <option value="descending">Descending</option>
+                    </select>}
 
                 </div>
 
               )
-            }
-          })}
+            })}
 
+          </div>
+
+
+
+          <div key={crypto.id} className="table">
+
+            {this.state.exchanges.map((crypto, i) => {
+              if (i < 90) {
+
+                return (
+
+                  <div className="data-row-container" onClick={() => this.handleClick(crypto)}>
+
+
+                    <div className="cRank">
+                      <h1> {crypto.market_cap_rank} </h1>
+                    </div>
+
+
+                    <div value={crypto.name} className="cName">
+                      <img src={crypto.image} />
+                      <h1 id='name' style={{ color: '#d49677' }}> {crypto.name} </h1>
+                    </div>
+
+
+                    <div className="cCap">
+                      <p> {crypto.market_cap.toLocaleString() + ' ' + this.state.base} </p>
+                    </div>
+
+                    <div className="cPrice">
+                      <p> {crypto.current_price.toFixed(2).toLocaleString() + ' ' + this.state.base} </p>
+                    </div>
+
+                    <div className="cVolume">
+                      <p> {crypto.total_volume.toLocaleString(navigator.language, { minimumFractionDigits: 0 }) + ' ' + this.state.base} </p>
+                    </div>
+
+                    <div className="cSupply">
+                      <p> {crypto.circulating_supply.toLocaleString(navigator.language, { minimumFractionDigits: 0 }) + ' ' + crypto.symbol.toUpperCase()} </p>
+                    </div>
+
+                    <div className="cChange">
+                      <p> {crypto.market_cap_change_percentage_24h.toFixed(2)}% </p>
+                    </div>
+
+                  </div>
+
+                )
+              }
+            })}
+
+          </div>
+          {this.state.modalActive ? <SingleCoin
+            symbol={this.state.singleCoin.symbol}
+            name={this.state.singleCoin.name}
+            id={this.state.singleCoin.id}
+            description={this.state.singleCoin.description}
+            toggleModal={() => this.toggleModal()} /> : null}
         </div>
-        {this.state.modalActive ? <SingleCoin
-          symbol={this.state.singleCoin.symbol}
-          name={this.state.singleCoin.name}
-          id={this.state.singleCoin.id}
-          description={this.state.singleCoin.description}
-          toggleModal={() => this.toggleModal()} /> : null}
       </>
 
     )

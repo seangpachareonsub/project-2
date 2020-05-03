@@ -64,7 +64,7 @@ class NewsPage extends React.Component {
           headlines: response.data.response.docs[0].headline['main'],
           search: true
         })
-        
+
         response.data.response.docs.map(images => {
           imagesArr.push('https://static01.nyt.com/' + images.multimedia[14].url)
         })
@@ -77,32 +77,32 @@ class NewsPage extends React.Component {
 
 
   render() {
-
     return (
-
       <>
 
         <Header />
 
         <section className="news">
 
-          <form onSubmit={(event) => this.handleSearch(event)} onChange={(event) => this.storeSearch(event)} className='search'>
-            <input type="text" placeholder="Search.." name="search"></input>
-            <button type="submit"> Search </button>
-          </form>
+          <div id='buffer'> buffer </div>
+
+          <div className='title'>
+            <h1> WORLD NEWS </h1>
+            <form onSubmit={(event) => this.handleSearch(event)} onChange={(event) => this.storeSearch(event)} className='search'>
+              <input autoComplete='off' type="text" placeholder="Search for news" name="search"></input>
+              <button type="submit"> <ion-icon name="search"></ion-icon> </button>
+            </form>
+          </div>
 
 
-          <h1 className='news-title'>  TOP STORIES</h1>
 
-
-
-          <nav className='nav-news'>
+          <div className='topics'>
             <ul>
               {this.state.nav.map((links, i) => {
                 return <li onClick={(event) => this.changeNews(event)} className='news-links' value={links} key={i}> {links} </li>
               })}
             </ul>
-          </nav>
+          </div>
 
           <a href={this.state.mainNews.url ? this.state.mainNews.url : this.state.mainNews.web_url} target='_blank'>
             <div className="jumbotron">
@@ -118,23 +118,38 @@ class NewsPage extends React.Component {
           </a>
 
 
-          <div className="secondary">
-
-            <div className='article' ></div>
-            <div className='article' ></div>
-            <div className='article' ></div>
-            <div className='article' ></div>
-            <div className='article' ></div>
+          <div className="secondary-one">
 
             {this.state.secondaryNews.map((article, i) => {
-              if (i !== 0 && i !== 0 && i !== 33) {
-
+              if (i !== 0 && i !== 0 && i < 12) {
                 return (
 
-                  <a key={i} href={article.url ? article.url : article.web_url} target='_blank'>
+                  <a key={i} href={article.url ? article.url : article.web_url}>
+                    <div className='article'>
+
+                      <img className='secondary-pic' src={this.state.search ? 'https://static01.nyt.com/' + article.multimedia[1].url : article.multimedia !== null ? article.multimedia[3].url : null} />
+
+
+                      <div className="article-content">
+                        <p style={{ textTransform: 'capitalize' }}> {article.section ? article.section : article.section_name} </p>
+                        <h1>{article.title ? article.title : article.headline['main']} </h1>
+                        <small> {article.abstract}</small>
+                      </div>
+                    </div>
+                  </a>
+                )
+              }
+            })}
+          </div>
+
+          <div className="secondary-two">
+
+            {this.state.secondaryNews.map((article, i) => {
+              if (i !== 0 && i !== 0 && i > 12 && i < 19) {
+                return (
+
+                  <a key={i} href={article.url ? article.url : article.web_url}>
                     <div className='article' >
-
-
                       <div className="image">
                         <img className='secondary-pic' src={this.state.search ? 'https://static01.nyt.com/' + article.multimedia[1].url : article.multimedia !== null ? article.multimedia[3].url : null} />
                       </div>
@@ -144,11 +159,10 @@ class NewsPage extends React.Component {
                         <h1>{article.title ? article.title : article.headline['main']} </h1>
                         <small> {article.abstract}</small>
                       </div>
-
-
                     </div>
-                  </a>
 
+        
+                  </a>
                 )
               }
             })}

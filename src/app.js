@@ -6,7 +6,6 @@ import 'bulma'
 import './styles/style.scss'
 
 import CoinsList from './components/CoinsList'
-import HomePage from './components/HomePage'
 import NewsPage from './components/NewsPage'
 
 const App = () => (
@@ -14,11 +13,8 @@ const App = () => (
   <Router>
 
     <Switch>
-
-      <Route exact path='/' component={HomePage} />
-      <Route exact path='/news' component={NewsPage} />
-      <Route exact path='/coins' component={CoinsList} />
-      
+      <Route exact path='/' component={NewsPage} />
+      <Route exact path='/coins' component={CoinsList} /> 
     </Switch>
   </Router>
 )
