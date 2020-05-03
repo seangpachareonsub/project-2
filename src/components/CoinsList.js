@@ -13,7 +13,7 @@ class HomePage extends React.Component {
     super()
     this.state = {
       exchanges: [],
-      headings: ['Rank', 'Name', 'Market Cap', 'Price', 'Total Volume', 'Circulating Supply', 'Market Cap Change (24h)'],
+      headings: ['Rank', 'Name', 'Market Cap', 'Price', 'Total Volume', 'Circulating Supply', 'M. Cap Change (24h)'],
       modalActive: false,
       singleCoin: {
         description: {}
@@ -55,7 +55,6 @@ class HomePage extends React.Component {
 
   callSort(event) {
 
-    // console.log(event.target.className)
     if (event.target.name === 'Rank') {
       this.setState({ exchanges: this.state.exchanges.sort(this.rankSort) })
     } else if (event.target.name === 'name') {
@@ -214,45 +213,49 @@ class HomePage extends React.Component {
 
 
           <div className="market-headers">
+
             <div className="base-filters">
-              <label> Base Filter <br />
-                <select onChange={(event) => this.change(event)} id="base">
-                  <option value="usd">USD</option>
-                  <option value="btc">BTC</option>
-                  <option value="eth">ETH</option>
-                  <option value="xrp">XRP</option>
-                  <option value="bch">BCH</option>
-                  <option value="ltc">LTC</option>
-                  <option value="jpy">JPY</option>
-                  <option value="gbp">GBP</option>
-                  <option value="eur">EUR</option>
-                </select>
-              </label>
+              <h1> Base Currency </h1>
+              <select onChange={(event) => this.change(event)} id="base">
+                <option value="usd">USD</option>
+                <option value="btc">BTC</option>
+                <option value="eth">ETH</option>
+                <option value="xrp">XRP</option>
+                <option value="bch">BCH</option>
+                <option value="ltc">LTC</option>
+                <option value="jpy">JPY</option>
+                <option value="gbp">GBP</option>
+                <option value="eur">EUR</option>
+              </select>
+
             </div>
 
-            {this.state.headings.map((headers, i) => {
-              return (
-                <div key={i} className='data-headings'>
-                  <h1 > {headers} </h1>
+            <header>
+              {this.state.headings.map((headers, i) => {
+                return (
+                  <div key={i}>
+                    <h1 > {headers} </h1>
 
-                  {headers === 'Name' ?
-                    <select className='Name' name="name"
-                      onChange={(event) => this.callSort(event)}>
-                      <option value="a-z">A-Z</option>
-                      <option value="z-a">Z-A</option>
-                    </select>
-                    :
-                    <select className={headers} name={headers}
-                      onChange={(event) => this.callSort(event)}>
-                      <option value="ascending"> Ascending </option>
-                      <option value="descending">Descending</option>
-                    </select>}
+                    {headers === 'Name' ?
+                      <select name="name"
+                        onChange={(event) => this.callSort(event)}>
+                        <option disabled selected>Filter</option>
+                        <option value="a-z">A-Z</option>
+                        <option value="z-a">Z-A</option>
+                      </select>
+                      :
+                      <select name={headers}
+                        onChange={(event) => this.callSort(event)}>
+                        <option disabled selected>Filter</option>
+                        <option value="ascending"> Ascending </option>
+                        <option value="descending">Descending</option>
+                      </select>}
 
-                </div>
+                  </div>
 
-              )
-            })}
-
+                )
+              })}
+            </header>
           </div>
 
 
@@ -264,7 +267,7 @@ class HomePage extends React.Component {
 
                 return (
 
-                  <div className="data-row-container" onClick={() => this.handleClick(crypto)}>
+                  <div className="data-rows" onClick={() => this.handleClick(crypto)}>
 
 
                     <div className="cRank">
@@ -274,7 +277,7 @@ class HomePage extends React.Component {
 
                     <div value={crypto.name} className="cName">
                       <img src={crypto.image} />
-                      <h1 id='name' style={{ color: '#d49677' }}> {crypto.name} </h1>
+                      <h1 id='name' style={{ color: '#d49677', fontWeight: 'bold' }}> {crypto.name} </h1>
                     </div>
 
 
@@ -287,15 +290,17 @@ class HomePage extends React.Component {
                     </div>
 
                     <div className="cVolume">
-                      <p> {crypto.total_volume.toLocaleString(navigator.language, { minimumFractionDigits: 0 }) + ' ' + this.state.base} </p>
+                      <p> {crypto.total_volume.toLocaleString() + ' ' + this.state.base} </p>
                     </div>
 
                     <div className="cSupply">
-                      <p> {crypto.circulating_supply.toLocaleString(navigator.language, { minimumFractionDigits: 0 }) + ' ' + crypto.symbol.toUpperCase()} </p>
+                      <p> {crypto.circulating_supply.toLocaleString() + ' ' + crypto.symbol.toUpperCase()} </p>
                     </div>
 
                     <div className="cChange">
-                      <p> {crypto.market_cap_change_percentage_24h.toFixed(2)}% </p>
+                      <p style={crypto.market_cap_change_percentage_24h > 0 ? { color: 'lightseagreen' } :
+                        { color: 'red' }}>
+                        {crypto.market_cap_change_percentage_24h.toFixed(2)}% </p>
                     </div>
 
                   </div>

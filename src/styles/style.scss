@@ -94,6 +94,7 @@ nav {
     img {
       height: 52%;
       width: auto;
+      margin-right: 2%;
     }
     h1 {
       font-size: 20px;
@@ -280,7 +281,6 @@ nav {
       text-overflow: ellipsis;
 
       &:hover {
-        // transform: scale(1.06);
         border-top: 2px solid #d49677;
       }
 
@@ -352,231 +352,176 @@ nav {
   }
 }
 
-
-
 // MARKET DATA
-
 .market-container {
- width: 100vw;
- height: 100vh;
-
- #buffer {
-   height: 10vh;
-   width: 100vw;
- }
-}
-
-
-
-.market-headers {
-  vertical-align: top;
-  display: flex;
-  background-color: rgb(25, 27, 31);
-  height: 70px;
-  align-items: center;
-
-  .base-filters {
-    color: white;
-    margin: 0px 30px;
-  }
-
-  div:nth-of-type(2) {
-    margin: 0px 80px 0px 10px;
-  }
-
-  div:nth-of-type(3) {
-    width: 60px;
-    margin-right: 90px;
-  }
-
-  div:nth-of-type(4) {
-    width: 120px;
-    margin-right: 90px;
-    text-align: end;
-  }
-  div:nth-of-type(5) {
-    text-align: end;
-    width: 90px;
-    margin-right: 90px;
-  }
-  div:nth-of-type(6) {
-    text-align: end;
-    width: 120px;
-    margin-right: 50px;
-  }
-
-  div:nth-of-type(7) {
-    text-align: end;
-    width: 170px;
-    margin-right: 50px;
-  }
-
-  div:nth-of-type(8) {
-    text-align: end;
-  }
-
-  .Rank {
-    margin-left: -16px;
-  }
-  .Price {
-    margin-left: -46px;
-  }
-
-  h1 {
-    color: white;
-  }
-
-  select {
-    background-color: transparent;
-    color: white;
-    border: none;
-  }
-}
-
-// market data table
-
-.table {
-  width: 100vw;
-  background-color: #2c2e36;
-
-  .data-row-container {
-    display: flex;
-    width: 100vw;
-    margin: 20px 0px;
-  }
-
-  .cRank {
-    margin: 0px 90px 0px 75px;
-    text-align: end;
-    color: white;
-    width: 100px;
-  }
-
-  .cName {
-    width: 220px;
-    text-align: start;
-    color: white;
-  }
-
-  .cCap {
-    width: 200px;
-    text-align: end;
-    margin-left: -100px;
-    color: white;
-    font-size: 14px;
-  }
-
-  .cPrice {
-    width: 200px;
-    text-align: end;
-    color: white;
-    font-size: 14px;
-    margin-left: -40px;
-  }
-
-  .cVolume {
-    width: 210px;
-    text-align: end;
-    color: white;
-    font-size: 14px;
-  }
-
-  .cSupply {
-    width: 220px;
-    text-align: end;
-    color: white;
-    font-size: 14px;
-    margin-right: 50px;
-  }
-
-  .cChange {
-    width: 140px;
-    text-align: end;
-    color: white;
-    font-size: 14px;
-  }
-}
-
-#name {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.headings {
-  display: flex;
-  justify-content: space-evenly;
-  height: 100%;
-}
-
-img {
-  width: 20px;
-  vertical-align: middle;
-  margin-right: 20px;
-}
-
-.hero-home {
   width: 100vw;
   height: 100vh;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100vw;
-}
-
-#name {
-  &:hover {
-    color: #d49677;
-    cursor: pointer;
-  }
-}
-
-// MODAL CONTENT
-.modal-content {
-  width: 58vw;
-  background-color: #121722;
-  padding: 20px 50px;
-  color: white;
-  font-family: "Baloo Chettan 2", cursive;
-
-  h1, h3{
-    text-decoration: underline;
-    font-size: 21px;
-    letter-spacing: 1px;
+  #buffer {
+    height: 10vh;
+    width: 100vw;
   }
 
-  h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    
-  }
-
-  article {
-    margin: 30px 0;
-  }
-
-  .description {
-    letter-spacing: 0.5px;
-    line-height: 23px;
+  // DATA HEADERS
+  .market-headers {
+    display: flex;
+    background-color: rgb(32, 38, 53);
+    height: 17vh;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    color: white;
+    font-size: 18.5px;
     font-family: "Baloo Chettan 2", cursive;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
-    font-size: 17px;
-    a {
+
+    .base-filters {
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      width: 12%;
+      justify-content: space-between;
+    }
+
+    select {
+      background-color: transparent;
+      border: none;
       color: rgb(255, 240, 104);
+      font-size: 13px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      width: 97vw;
+
+      div {
+        width: 11.5vw;
+        &:nth-of-type(1) {
+          text-align: start;
+          display: block;
+          width: 9vw;
+        }
+        &:nth-of-type(3),
+        &:nth-of-type(5),
+        &:nth-of-type(6) {
+          text-align: end;
+          display: block;
+          width: 16.5vw;
+        }
+        &:nth-of-type(4),
+        &:nth-of-type(7) {
+          text-align: end;
+          display: block;
+          width: 12.5vw;
+        }
+      }
     }
   }
-}
 
-.modal-background {
-  backdrop-filter: blur(2px) brightness(90%);
-}
+  // DATA TABLE
+  .table {
+    width: 98vw;
+    background-color: rgb(32, 38, 53);
+    color: white;
+    overflow-y: scroll;
+    height: 75vh;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
-.modal-close {
-  position: absolute;
-  right: 20%;
+    .data-rows {
+      display: flex;
+      align-items: center;
+      width: 100vw;
+      height: 73px;
+      border-bottom: 1px rgba(128, 128, 128, 0.55) solid;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.03);
+        border-bottom: 1px rgb(255, 240, 104) solid;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+        width: 11vw;
+
+        img {
+          width: 20px;
+          vertical-align: middle;
+          margin-right: 20px;
+        }
+
+        &:nth-of-type(1) {
+          text-align: center;
+          display: block;
+          width: 10vw;
+        }
+        &:nth-of-type(3),
+        &:nth-of-type(5),
+        &:nth-of-type(6) {
+          text-align: end;
+          display: block;
+          width: 17vw;
+        }
+        &:nth-of-type(4),
+        &:nth-of-type(7) {
+          text-align: end;
+          display: block;
+          width: 11.5vw;
+        }
+      }
+    }
+  }
+
+  // MODAL CONTENT
+  .modal-content {
+    width: 58vw;
+    background-color: #121722;
+    padding: 20px 50px;
+    color: white;
+    font-family: "Baloo Chettan 2", cursive;
+
+    h1,
+    h3 {
+      text-decoration: underline;
+      font-size: 21px;
+      letter-spacing: 1px;
+    }
+    h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    article {
+      margin: 30px 0;
+    }
+
+    .description {
+      letter-spacing: 0.5px;
+      line-height: 23px;
+      font-family: "Baloo Chettan 2", cursive;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 7;
+      -webkit-box-orient: vertical;
+      font-size: 17px;
+      a {
+        color: rgb(255, 240, 104);
+      }
+    }
+  }
+
+  .modal-background {
+    backdrop-filter: blur(2.2px) brightness(85%);
+  }
+
+  .modal-close {
+    position: absolute;
+    right: 20%;
+  }
 }
