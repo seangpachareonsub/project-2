@@ -159,13 +159,13 @@ nav {
 
       input {
         height: 30px;
-        width: 50%;
+        width: 40%;
         background-color: transparent;
         border: none;
         padding-left: 8px;
         font-size: 16px;
         color: white;
-        transition: 0.25s;
+        transition: 0.3s;
         &:focus {
           border: yellow 1px solid;
           width: 70%;
@@ -226,8 +226,10 @@ nav {
     img {
       object-fit: cover;
       object-position: center;
-      min-width: 47vw;
+      min-width: 45vw;
+      max-width: 45vw;
       height: 100%;
+      margin-right: 30px;
     }
 
     .jumbotron-content {
@@ -320,7 +322,7 @@ nav {
     justify-content: space-around;
     flex-wrap: wrap;
     height: auto;
-    transform: translateX(-1.5%);
+    transform: translateX(-3%);
 
     a {
       width: 39%;
@@ -339,13 +341,13 @@ nav {
           border-top: 2px solid #d49677;
         }
         .secondary-pic {
-          width: 100%;
+          width: 58%;
           height: 160px;
           object-fit: contain;
         }
 
         .article-content {
-          width: 55%;
+          width: 70%;
         }
       }
     }
@@ -428,6 +430,7 @@ nav {
     color: white;
     overflow-y: scroll;
     height: 75vh;
+    overflow-x: hidden;
     &::-webkit-scrollbar {
       display: none;
     }

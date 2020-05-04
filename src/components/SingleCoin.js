@@ -2,20 +2,20 @@
 import TradingViewWidget from 'react-tradingview-widget'
 import React from 'react'
 
-const SingleCoin = ({ symbol, id, description, toggleModal }) => {
-
+const SingleCoin = ({ singleCoin, toggleModal }) => {
   return (
     <>
       <div className="modal is-active">
         <div className="modal-background" onClick={toggleModal}></div>
         <div className="modal-content">
 
-          <h1> {(id).toUpperCase()} {(symbol).toUpperCase()} </h1>
+          <h1> {(singleCoin.id).toUpperCase()} 
+            {(singleCoin.symbol).toUpperCase()} </h1>
 
 
           <TradingViewWidget
             theme='dark'
-            symbol={symbol + 'usd'}
+            symbol={singleCoin.symbol + 'usd'}
             width='100%'
             height='420'
             interval='D'
@@ -33,7 +33,8 @@ const SingleCoin = ({ symbol, id, description, toggleModal }) => {
 
           <h3>ABOUT</h3>
 
-          <div className='description' dangerouslySetInnerHTML={{ __html: description.en }} />
+          <div className='description' 
+            dangerouslySetInnerHTML={{ __html: singleCoin.description.en }} />
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleModal}></button>
       </div>

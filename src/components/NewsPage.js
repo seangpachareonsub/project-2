@@ -1,9 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-
 import Header from './Header'
-
-const imagesArr = []
 
 class NewsPage extends React.Component {
   constructor() {
@@ -16,7 +13,6 @@ class NewsPage extends React.Component {
         'Science', 'Sports', 'Technology', 'Travel', 'World'],
       query: '',
       headlines: [],
-      secondayImages: [],
       search: false
     }
   }
@@ -25,110 +21,94 @@ class NewsPage extends React.Component {
     axios.get('https://api.nytimes.com/svc/topstories/v2/business.json?api-key=WJACAxScK1FNFg15KpU8rxW9ONYaSc4v')
       .then(response => {
         this.setState({
-          mainNews: response.data.results[0], secondaryNews: response.data.results,
-          image: response.data.results[0].multimedia[0].url
+          mainNews: response.data.results[0],
+          image: response.data.results[0].multimedia[0].url,
+          secondaryNews: response.data.results
         })
-        // console.log(this.state.secondaryNews)
       })
   }
 
-  changeNews(event) {
-
-    const target = event.target.innerText.toLowerCase().replace(/\s/g, '')
-    console.log(target)
+  changeNews(e) {
+    const target = e.target.innerText.toLowerCase().replace(/\s/g, '')
 
     axios.get(`https://api.nytimes.com/svc/topstories/v2/${target}.json?api-key=WJACAxScK1FNFg15KpU8rxW9ONYaSc4v`)
       .then(response => {
-        // console.log(response.data)
         this.setState({
-          mainNews: response.data.results[0], secondaryNews: response.data.results,
-          image: response.data.results[0].multimedia[0].url
+          mainNews: response.data.results[0],
+          image: response.data.results[0].multimedia[0].url,
+          secondaryNews: response.data.results
         })
       })
   }
 
-  storeSearch(event) {
-    this.setState({ query: event.target.value })
-
+  storeSearch(e) {
+    this.setState({ query: e.target.value })
   }
 
-  handleSearch(event) {
-    event.preventDefault()
-    // console.log(this.state.query)
+  handleSearch(e) {
+    e.preventDefault()
 
     axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.state.query}&api-key=WJACAxScK1FNFg15KpU8rxW9ONYaSc4v`)
       .then(response => {
+        const { docs } = response.data.response
+
         this.setState({
-          mainNews: response.data.response.docs[0], secondaryNews: response.data.response.docs,
-          image: 'https://static01.nyt.com/' + response.data.response.docs[0].multimedia[0].legacy.xlarge,
-          headlines: response.data.response.docs[0].headline['main'],
+          mainNews: docs[0], 
+          secondaryNews: docs,
+          image: 'https://static01.nyt.com/' + docs[0].multimedia[0].legacy.xlarge,
+          headlines: docs[0].headline['main'],
           search: true
         })
-
-        response.data.response.docs.map(images => {
-          imagesArr.push('https://static01.nyt.com/' + images.multimedia[14].url)
-        })
-        this.setState({ secondaryImages: imagesArr })
-        console.log(response.data.response.docs)
       })
   }
 
-
-
-
   render() {
+    const { mainNews, headlines, nav, image, search } = this.state
+
     return (
       <>
-
         <Header />
-
         <section className="news">
-
           <div id='buffer'> buffer </div>
 
           <div className='title'>
             <h1> WORLD NEWS </h1>
-            <form onSubmit={(event) => this.handleSearch(event)} onChange={(event) => this.storeSearch(event)} className='search'>
+            <form onSubmit={(e) => this.handleSearch(e)} onChange={(e) => this.storeSearch(e)} className='search'>
               <input autoComplete='off' type="text" placeholder="Search for news" name="search"></input>
               <button type="submit"> <ion-icon name="search"></ion-icon> </button>
             </form>
           </div>
 
-
-
           <div className='topics'>
             <ul>
-              {this.state.nav.map((links, i) => {
-                return <li onClick={(event) => this.changeNews(event)} className='news-links' value={links} key={i}> {links} </li>
+              {nav.map((links, i) => {
+                return <li onClick={(e) => this.changeNews(e)} className='news-links' value={links} key={i}> {links} </li>
               })}
             </ul>
           </div>
 
-          <a href={this.state.mainNews.url ? this.state.mainNews.url : this.state.mainNews.web_url} target='_blank'>
+
+          {/* JUMBOTRON SECTION  */}
+          <a href={mainNews.url ? mainNews.url : mainNews.web_url}>
             <div className="jumbotron">
-              <div>
-                <img className='hero' src={this.state.image} />
-              </div>
+              <img className='hero' src={image} />
               <div className='jumbotron-content'>
-                <p style={{ textTransform: 'capitalize' }}> {this.state.mainNews.section ? this.state.mainNews.section : this.state.mainNews.section_name} </p>
-                <h1> {this.state.mainNews.title ? this.state.mainNews.title : this.state.headlines} </h1>
-                <small> {this.state.mainNews.abstract} </small>
+                <p style={{ textTransform: 'capitalize' }}> {mainNews.section ? mainNews.section : mainNews.section_name} </p>
+                <h1> {mainNews.title ? mainNews.title : headlines} </h1>
+                <small> {mainNews.abstract} </small>
               </div>
             </div>
           </a>
 
-
+          {/* SECONDARY NEWS SECTION  */}
           <div className="secondary-one">
 
             {this.state.secondaryNews.map((article, i) => {
-              if (i !== 0 && i !== 0 && i < 12) {
+              if (i !== 0 && i < 12) {
                 return (
-
                   <a key={i} href={article.url ? article.url : article.web_url}>
                     <div className='article'>
-
-                      <img className='secondary-pic' src={this.state.search ? 'https://static01.nyt.com/' + article.multimedia[1].url : article.multimedia !== null ? article.multimedia[3].url : null} />
-
+                      <img className='secondary-pic' src={search ? 'https://static01.nyt.com/' + article.multimedia[1].url : article.multimedia !== null ? article.multimedia[3].url : null} />
 
                       <div className="article-content">
                         <p style={{ textTransform: 'capitalize' }}> {article.section ? article.section : article.section_name} </p>
@@ -145,14 +125,13 @@ class NewsPage extends React.Component {
           <div className="secondary-two">
 
             {this.state.secondaryNews.map((article, i) => {
-              if (i !== 0 && i !== 0 && i > 12 && i < 19) {
+              if (i !== 0 && i > 12 && i < 19) {
                 return (
 
                   <a key={i} href={article.url ? article.url : article.web_url}>
                     <div className='article' >
-                      <div className="image">
-                        <img className='secondary-pic' src={this.state.search ? 'https://static01.nyt.com/' + article.multimedia[1].url : article.multimedia !== null ? article.multimedia[3].url : null} />
-                      </div>
+                      <img className='secondary-pic' src={search ? 'https://static01.nyt.com/' + article.multimedia[1].url : article.multimedia !== null ? article.multimedia[3].url : null} />
+
 
                       <div className="article-content">
                         <p style={{ textTransform: 'capitalize' }}> {article.section ? article.section : article.section_name} </p>
@@ -160,14 +139,11 @@ class NewsPage extends React.Component {
                         <small> {article.abstract}</small>
                       </div>
                     </div>
-
-        
                   </a>
                 )
               }
             })}
           </div>
-
         </section>
       </>
     )

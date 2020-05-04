@@ -31,8 +31,8 @@ class Header extends React.Component {
         </div>
 
         <div className='header-links'>
-          <Link to='/'> <li> News </li> </Link>
-          <Link to='/coins'> <li> Market Data </li> </Link>
+          <Link to='/'> <li> World News </li> </Link>
+          <Link to='/coins'> <li> Crypto Data </li> </Link>
 
           <div id='time-contain'>
             <p id='time'>{this.state.time}</p>

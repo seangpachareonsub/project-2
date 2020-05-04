@@ -3,10 +3,6 @@ import axios from 'axios'
 import SingleCoin from './SingleCoin'
 import Header from './Header'
 
-
-
-
-
 class HomePage extends React.Component {
 
   constructor() {
@@ -15,47 +11,32 @@ class HomePage extends React.Component {
       exchanges: [],
       headings: ['Rank', 'Name', 'Market Cap', 'Price', 'Total Volume', 'Circulating Supply', 'M. Cap Change (24h)'],
       modalActive: false,
-      singleCoin: {
-        description: {}
-      },
+      singleCoinInfo: {},
       base: 'USD'
     }
   }
 
   componentDidMount() {
-
     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false')
-      .then(response => {
-        this.setState({ exchanges: response.data })
-        console.log(response.data)
-      })
+      .then(response => this.setState({ exchanges: response.data }))
   }
 
-  change(event) {
-    const symbol = event.target.value.toUpperCase()
+  change(e) {
+    const symbol = e.target.value
 
-    axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${event.target.value}&order=market_cap_desc&per_page=100&page=1&sparkline=false`)
-      .then(response => {
-
-        this.setState({ exchanges: response.data, base: symbol })
-
-      })
+    axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${symbol}&order=market_cap_desc&per_page=100&page=1&sparkline=false`)
+      .then(response => this.setState({ exchanges: response.data, 
+        base: symbol.toUpperCase() }))
   }
 
   handleClick(crypto) {
-    // this.setState({ singleCoinName: crypto })
-    // this.toggleModal()
     axios.get(`https://api.coingecko.com/api/v3/coins/${crypto.id.toLowerCase()}`)
-      .then(response => {
-        // this.setState({ data: response.data, description: response.data.description })
-        this.setState({ singleCoin: response.data })
-        this.toggleModal()
-      })
+      .then(response => this.setState({ singleCoinInfo: response.data, 
+        modalActive: !this.state.modalActive }))
   }
 
   callSort(e) {
-
-    const keys =  ['market_cap_rank', 'name', 'market_cap', 'current_price', 'total_volume', 'circulating_supply', 'market_cap_change_percentage_24h']
+    const keys = ['market_cap_rank', 'name', 'market_cap', 'current_price', 'total_volume', 'circulating_supply', 'market_cap_change_percentage_24h']
     const { exchanges, headings } = this.state
     const heading = keys[headings.indexOf(e.target.name)]
     const { value } = e.target
@@ -64,29 +45,17 @@ class HomePage extends React.Component {
       case 'descending':
         this.setState({ exchanges: exchanges.sort((a, b) => b[heading] - a[heading]) })
         break
-
       case 'ascending':
         this.setState({ exchanges: exchanges.sort((a, b) => a[heading] - b[heading]) })
         break
-
       case 'a-z':
-        this.setState({ exchanges: exchanges.sort((a,b) => a[heading].localeCompare(b[heading])) })
+        this.setState({ exchanges: exchanges.sort((a, b) => a[heading].localeCompare(b[heading])) })
         break
-
       case 'z-a':
-        this.setState({ exchanges: exchanges.sort((a,b) => b[heading].localeCompare(a[heading])) })
+        this.setState({ exchanges: exchanges.sort((a, b) => b[heading].localeCompare(a[heading])) })
         break
     }
   }
-
-
-
-
-
-
-
-
-
 
   toggleModal() {
     this.setState({ modalActive: !this.state.modalActive })
@@ -95,20 +64,16 @@ class HomePage extends React.Component {
 
   render() {
     return (
-
       <>
         <Header />
-
         <div className="market-container">
-
           <div id='buffer'> buffer </div>
-
 
           <div className="market-headers">
 
             <div className="base-filters">
               <h1> Base Currency </h1>
-              <select onChange={(event) => this.change(event)} id="base">
+              <select onChange={(e) => this.change(e)} id="base">
                 <option value="usd">USD</option>
                 <option value="btc">BTC</option>
                 <option value="eth">ETH</option>
@@ -119,7 +84,6 @@ class HomePage extends React.Component {
                 <option value="gbp">GBP</option>
                 <option value="eur">EUR</option>
               </select>
-
             </div>
 
             <header>
@@ -131,46 +95,37 @@ class HomePage extends React.Component {
                     {headers === 'Name' ?
                       <select name='Name'
                         onChange={(e) => this.callSort(e)}>
-                        <option disabled selected>Filter</option>
+                        <option disabled selected>Sort</option>
                         <option value="a-z">A-Z</option>
                         <option value="z-a">Z-A</option>
                       </select>
                       :
                       <select name={headers}
                         onChange={(e) => this.callSort(e)}>
-                        <option disabled selected>Filter</option>
+                        <option disabled selected>Sort</option>
                         <option value="ascending"> Ascending </option>
                         <option value="descending">Descending</option>
                       </select>}
 
                   </div>
-
                 )
               })}
             </header>
           </div>
 
-
-
           <div key={crypto.id} className="table">
-
             {this.state.exchanges.map((crypto, i) => {
               const { base } = this.state
 
               return (
-
                 <div key={i} className="data-rows" onClick={() => this.handleClick(crypto)}>
 
-                  <div>
-                    <h1> {crypto.market_cap_rank} </h1>
-                  </div>
-
+                  <div> <h1> {crypto.market_cap_rank} </h1> </div>
 
                   <div value={crypto.name}>
                     <img src={crypto.image} />
                     <h1 id='name' style={{ color: '#d49677', fontWeight: 'bold' }}> {crypto.name} </h1>
                   </div>
-
 
                   <div> <p> {crypto.market_cap.toLocaleString() + ' ' + base} </p> </div>
 
@@ -178,9 +133,7 @@ class HomePage extends React.Component {
 
                   <div> <p> {crypto.total_volume.toLocaleString() + ' ' + base} </p> </div>
 
-                  <div>
-                    <p> {crypto.circulating_supply.toLocaleString() + ' ' + crypto.symbol.toUpperCase()} </p>
-                  </div>
+                  <div> <p> {crypto.circulating_supply.toLocaleString() + ' ' + crypto.symbol.toUpperCase()} </p> </div>
 
                   <div>
                     <p style={crypto.market_cap_change_percentage_24h > 0 ? { color: 'lightseagreen' } :
@@ -188,20 +141,17 @@ class HomePage extends React.Component {
                   </div>
 
                 </div>
-
               )
             })}
 
           </div>
-          {this.state.modalActive ? <SingleCoin
-            symbol={this.state.singleCoin.symbol}
-            name={this.state.singleCoin.name}
-            id={this.state.singleCoin.id}
-            description={this.state.singleCoin.description}
-            toggleModal={() => this.toggleModal()} /> : null}
+          {this.state.modalActive ?
+            <SingleCoin
+              singleCoin={this.state.singleCoinInfo}
+              toggleModal={() => this.toggleModal()} />
+            : null}
         </div>
       </>
-
     )
   }
 }
