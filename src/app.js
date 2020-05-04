@@ -10,8 +10,7 @@ import NewsPage from './components/NewsPage'
 
 const App = () => (
 
-  <Router>
-
+  <Router basename='/financier'>
     <Switch>
       <Route exact path='/' component={NewsPage} />
       <Route exact path='/coins' component={CoinsList} /> 
