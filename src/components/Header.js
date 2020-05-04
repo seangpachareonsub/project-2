@@ -26,7 +26,7 @@ class Header extends React.Component {
       <nav>
 
         <div className='logo'>
-          <img id='logo' src="../Screenshot 2020-05-02 at 20.50.55.png" alt=""/>
+          <img id='logo' src="https://imgur.com/I6msInQ" alt=""/>
           <h1> Financier </h1>
         </div>
 
