@@ -14,63 +14,7 @@ html {
   width: 100vw;
 }
 
-// HOMEPAGE
-main {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  #backdrop {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    object-fit: cover;
-    filter: brightness(55%) blur(1.6px);
-    z-index: -1;
-  }
-
-  #logo {
-    width: 70px;
-    margin: 2% 0 0 0;
-    box-shadow: 1px 1px 1.3px 1.3px gray;
-  }
-
-  div {
-    position: absolute;
-    bottom: 34%;
-    left: 7%;
-    color: white;
-    height: 25%;
-    h3 {
-      z-index: 1;
-      font-size: 42px;
-      letter-spacing: 1px;
-      font-family: "Times New Roman", Times, serif;
-      &:nth-of-type(2) {
-        margin-bottom: 30px;
-      }
-    }
-    button {
-      font-size: 23px;
-      background: transparent;
-      border: none;
-      color: white;
-      font-family: "Montserrat";
-      transition: 0.2s;
-      &:hover {
-        cursor: pointer;
-        border-bottom: 2.5px solid rgb(255, 240, 104);
-        padding-bottom: 7px;
-        color: rgb(255, 240, 104);
-      }
-    }
-  }
-}
-
 //NAVABR
-
 nav {
   height: 10vh;
   width: 100vw;
@@ -97,19 +41,19 @@ nav {
       margin-right: 2%;
     }
     h1 {
-      font-size: 20px;
+      font-size: 18px;
       font-family: "Montserrat";
       color: white;
     }
   }
 
   .header-links {
-    width: 32%;
+    width: 33%;
     justify-content: space-around;
     li {
       list-style: none;
       color: white;
-      font-size: 17px;
+      font-size: 15px;
       font-family: "Montserrat";
       &:hover {
         transform: scale(1.05);
@@ -118,10 +62,10 @@ nav {
     }
 
     #time-contain {
-      width: 210px;
+      width: 205px;
       color: white;
       font-family: "Montserrat";
-      font-size: 15px;
+      font-size: 13px;
     }
   }
 }
@@ -147,7 +91,7 @@ nav {
       text-align: center;
       color: white;
       font-family: "Times New Roman", Times, serif;
-      font-size: 70px;
+      font-size: 63px;
       letter-spacing: 2px;
     }
 
@@ -158,12 +102,12 @@ nav {
       align-items: center;
 
       input {
-        height: 30px;
+        height: 27px;
         width: 40%;
         background-color: transparent;
         border: none;
         padding-left: 8px;
-        font-size: 16px;
+        font-size: 14px;
         color: white;
         transition: 0.3s;
         &:focus {
@@ -179,7 +123,7 @@ nav {
         background-color: transparent;
         border: none;
         ion-icon {
-          font-size: 26px;
+          font-size: 23px;
           color: white;
         }
         &:hover {
@@ -198,7 +142,7 @@ nav {
       justify-content: space-around;
       li {
         display: inline-block;
-        font-size: 16px;
+        font-size: 14.5px;
         font-family: "Montserrat";
         &:hover {
           color: rgb(255, 240, 104);
@@ -229,7 +173,7 @@ nav {
       min-width: 45vw;
       max-width: 45vw;
       height: 100%;
-      margin-right: 30px;
+      margin-right: 26px;
     }
 
     .jumbotron-content {
@@ -238,14 +182,14 @@ nav {
       font-family: "Montserrat";
       small {
         width: 80%;
-        font-size: 17px;
+        font-size: 15.5px;
       }
       h1 {
-        font-size: 55px;
+        font-size: 48.5px;
         font-family: "Times New Roman", Times, serif;
-        line-height: 55px;
+        line-height: 50px;
         width: 97%;
-        margin: 3% 0 6% 0;
+        margin: 2% 0 5% 0;
       }
       p {
         color: #d49677;
@@ -273,7 +217,7 @@ nav {
       display: flex;
       flex-direction: column;
       height: 85%;
-      width: 250px;
+      width: 220px;
       margin: 3% 35px;
       color: white;
       scroll-snap-align: center;
@@ -295,7 +239,7 @@ nav {
       p {
         color: #d49677;
         margin: 2% 0;
-        font-size: 14px;
+        font-size: 12px;
       }
 
       h1 {
@@ -304,10 +248,10 @@ nav {
         text-align: left;
         margin-bottom: 10px;
         font-family: "Times New Roman", Times, serif;
-        font-size: 17px;
+        font-size: 15px;
       }
       small {
-        font-size: smaller;
+        font-size: 12.5px;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -341,8 +285,8 @@ nav {
           border-top: 2px solid #d49677;
         }
         .secondary-pic {
-          width: 58%;
-          height: 160px;
+          width: 55%;
+          height: 140px;
           object-fit: contain;
         }
 
@@ -376,7 +320,7 @@ nav {
     flex-direction: column;
     justify-content: space-around;
     color: white;
-    font-size: 18.5px;
+    font-size: 16.5px;
     font-family: "Baloo Chettan 2", cursive;
 
     .base-filters {
@@ -391,7 +335,7 @@ nav {
       background-color: transparent;
       border: none;
       color: rgb(255, 240, 104);
-      font-size: 13px;
+      font-size: 11.5px;
     }
 
     header {
@@ -439,7 +383,7 @@ nav {
       display: flex;
       align-items: center;
       width: 100vw;
-      height: 73px;
+      height: 68px;
       border-bottom: 1px rgba(128, 128, 128, 0.253) solid;
       &:hover {
         cursor: pointer;
@@ -451,11 +395,11 @@ nav {
         display: flex;
         align-items: center;
         width: 11vw;
-
+        font-size: 14px;
         img {
-          width: 20px;
+          width: 18px;
           vertical-align: middle;
-          margin-right: 20px;
+          margin-right: 18px;
         }
 
         &:nth-of-type(1) {
@@ -487,15 +431,17 @@ nav {
     padding: 20px 50px;
     color: white;
     font-family: "Baloo Chettan 2", cursive;
+    height: 91%;
+    overflow: hidden;
 
     h1,
     h3 {
       text-decoration: underline;
-      font-size: 21px;
+      font-size: 18.5px;
       letter-spacing: 1px;
     }
     h3 {
-      font-size: 18px;
+      font-size: 16.5px;
       margin-bottom: 10px;
     }
 
@@ -504,15 +450,15 @@ nav {
     }
 
     .description {
-      letter-spacing: 0.5px;
-      line-height: 23px;
+      letter-spacing: 0.2px;
+      line-height: 21px;
       font-family: "Baloo Chettan 2", cursive;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 7;
       -webkit-box-orient: vertical;
-      font-size: 17px;
+      font-size: 15.5px;
       a {
         color: rgb(255, 240, 104);
       }

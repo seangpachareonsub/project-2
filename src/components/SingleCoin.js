@@ -17,7 +17,7 @@ const SingleCoin = ({ singleCoin, toggleModal }) => {
             theme='dark'
             symbol={singleCoin.symbol + 'usd'}
             width='100%'
-            height='420'
+            height='370'
             interval='D'
             timezone='Etc/UTC'
             style='3'
