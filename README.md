@@ -4,7 +4,7 @@
 
 ### Overview
 
-This is my second project of the Software Engineering bootcamp at GA London. The assignment was a mini hackathon to build a React application that consumes a public API.
+This is my second project of the Software Engineering bootcamp at GA London. The assignment was designed as a mini hackathon, building a React application that consumes a public API.
 
 Making use of the New York Times and CoinGecko public API, Financier functions as a news website that also includes a CryptoCurrency market data page.
 
@@ -33,18 +33,17 @@ You can launch the game on [GitHub pages](), or find the [GitHub repository](htt
 
 ## Approach
 
-We decided as a team to search for an open working API which had world news data we could display. We chose the New York Times (NYT) public API and began wireframing the website, gave ourselves a timeframe to finish the logic aspect on the first day and styling on the second day.​
+We decided as a team to search for an open source API which included world news data we could display. We chose the New York Times (NYT) public API and began wireframing the website, gave ourselves a timeframe to finish the logic aspect on the first day and styling on the second day.​
 
-After a quick test with the NYT API, we quickly discovered that the response given back was not as detailed as we had hoped and not enough for an entire website. Therefore, with our mutual interest in CryptoCurrencies, we decided to couple the NYT API with CoinGecko's to create a news webpage with a market data section.
+After a quick test with the API, we quickly discovered that the response given back was not as detailed as we had thought and not enough for an entire website. Therefore, with our mutual interest in CryptoCurrencies, we decided to couple the NYT API with CoinGecko's to create a news webpage with a market data section.
 
 #### The main features we decided on:
 
-* The news page acting as our landing page
-* The landing page would first display Finance related news
+* The news page would also act as our landing page and would first display business related news
 * Search input that allows users to search for specific topics
 * A navbar which routes to the pages.
 * The market data will be CrytoCurrency heavy as that's the information the API gave us  
-* An user interactive chart widget provided by TradingView 
+* An user interactive price chart provided by TradingView 
 
 #### The routing of pages we decided on:
 
@@ -56,7 +55,7 @@ After a quick test with the NYT API, we quickly discovered that the response giv
 
 We drew inspiration from other news webpages such as BBC, Financial Times and The Economist. A common theme amongst them was that their news page was also acted as their landing page. We thought this structure made sense for a small website with very few pages and decided to follow it.
 
-The NYT API provided us with a `/topstories` endpoint which returned the latest news articles for a specific topic. Once our news component mounted we:
+The NYT API provided us with a `/topstories` endpoint which returned the latest news articles for a specific topic. Once our component first mounted we:
 
 1. Sent out a GET request to the `/topstories` endpoint
 2. Once the promise was fulfilled, we used `this.setState` to store the data given back
@@ -75,7 +74,7 @@ componentDidMount() {
 }
 ```
 
-**NOTE:** This endpoint is used also when users wish to change news topics. By default the page renders business related articles but we've provided users a mini topic navbar which renders different genres.
+**NOTE:** This endpoint is used also when users wish to change news topics. By default the page renders business related articles but we've provided users a topic navbar which they can choose different news genres from.
 
 #### Rendering the articles
 
@@ -112,13 +111,13 @@ Using JavaScript's array `map()` method we were able to render the following for
 **NOTES:** 
 
 * Articles are enclosed with an `<a>` tag which directs them to the NYT website if users wish to read more
-* The key names within the API responses given back from the `/topstories` and `/search` endpoints differ. Therefore, upon rendering, a ternary statement is needed. It checks which key name is being returned from the API and then subsequently, renders that information.
+* The key names within the JSON responses given back from the `/topstories` and `/search` endpoints differ. Therefore, upon rendering, a ternary statement is needed. It checks which key name is being returned from the API and then subsequently, renders that information.
 
 #### Searching for articles
 
-Implementing the `/search` endpoint of the API, the site provides users the ability to search for specific news topics. This is handled through a form on the page that includes a search input.
+Implementing the `/search` endpoint of the API, the site provides users the ability to search for specific news. This is handled through a form on the page that includes a search input.
 
-The `storeSearch()` function is invoked `onChange` of the search form
+The `storeSearch()` function is invoked `onChange` of the search form and state updates as the user is typing
 
 ```
 storeSearch(e) {
@@ -149,7 +148,7 @@ handleSearch(e) {
 
 ### Market Data Page
 
-This page serves the purpose to give users up to date CryptoCurrency insight by implementing the CoinGecko public API. We display the top 100 CryptoCurrencies currently dominating the market.
+This page was developed with the purpose to give users up-to-date CryptoCurrency insight by implementing the CoinGecko public API. We display the top 100 CryptoCurrencies currently dominating the market.
 
 When the component first mounts, we send a GET request to the `/coin` endpoint inside a `componentDidMount()`. Inside the promise chain, the response is stored into state. 
 
@@ -168,9 +167,9 @@ By default, we've compared each currency price against the USD. Users are able t
 
 The page gives users the power to sort the market data alphabetically or numerically. Each heading has it's own `<select>` dropdown with different sorting options (i.e. a-z, z-a, ascending, descending). `callSort()` function is ran `onChange` of any of the dropdowns.
 
-1. We store the heading of which specific data information the user wants sorted in `const heading`. The heading is an element from the `keys` array, where the index number of the element matches that of the one stored in state.
+1. We store the heading of which specific data information the user wants sorted in `const heading`. The value is an element taken from the `keys` array, where the index number of the element matches that of the one stored in state.
 2. Using a `switch` statement, we're able to run a different sort method, depending on the value of the dropdown.
-3. Each sort method holds a different comparison function and we set the sorted data in state.
+3. Each sort method holds a different comparison function and we set the sorted data into state.
 
 ```
 callSort(e) {
@@ -198,13 +197,13 @@ callSort(e) {
   }
 ```
 
-**NOTE:** `headings` is a piece of state that holds the displayed headings of the currency (i.e. name, volume rank). The `keys` array holds the actual response keys from the API. `const headings` looks to match the index numbers from each array.
+**NOTE:** `headings` is a piece of state that holds the displayed headings of the currency (i.e. name, volume and rank). The `keys` array holds the actual JSON response keys from the API. `const headings` looks to match the index numbers from each array to know which information needs sorting.
 
 #### Coin Modal
 
 Users are able to click on any of the 100 CryptoCurrencies displayed which renders a modal overlay on top of the current page. The modal provides an interactive price chart and a descriptive paragraph about the coin. 
 
-Toggling between a piece of state called `modalActive` renders the modal. When set to `true`, props containing coin information are passed to a `SingleCoin` component.
+Toggling between a piece of state called `modalActive` renders the modal. When set to `true`, props containing coin information are passed to a `<SingleCoin />` component.
 
 ```
 {this.state.modalActive ?
@@ -222,13 +221,13 @@ Toggling between a piece of state called `modalActive` renders the modal. When s
 ![](images/Screenshot%202020-05-04%20at%2001.30.15.png)
 
 ### Bugs
-The `/search` endpoint for the NYT API at times returns no response. This only occurs when the user searches for certain topics and the page becomes blank. 
+The `/search` endpoint for the NYT API at times, returns no response. This only occurs when the user searches for certain topics and the page becomes blank. 
 
 ### Potential future features and improvements
 * Include other economic markets (i.e. Stocks, FX, Indicies)
 * Responsive design. Mobile friendly
-* A filter function on market data, allowing users to filter betweenspecific values  
+* A filter function on market data, allowing users to filter between specific values  
 
 ### Lessons learned
 * Depending on the structure of the API, it can be quite tedious to get all the information that you want. Different endpoints return different key value pairs so many ternary statements are needed in order to render the correct information
-* Design mobile first. Mobile websites and apps have increasingly popular for people. A mobile friendly design has a simpler structure than a desktop webpage which may have catered to the short project duration.
+* Design mobile first. Mobile websites and apps have become increasingly popular. A mobile friendly design has a simpler structure than a desktop webpage which may have catered to this short project duration.
