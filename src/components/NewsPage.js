@@ -18,7 +18,8 @@ class NewsPage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('https://api.nytimes.com/svc/topstories/v2/business.json?api-key=WJACAxScK1FNFg15KpU8rxW9ONYaSc4v')
+    // v
+    axios.get('https://api.nytimes.com/svc/topstories/v2/business.json?api-key=WJACAxScK1FNFg15KpU8rxW9ONYaSc4')
       .then(response => {
         this.setState({
           mainNews: response.data.results[0],
@@ -30,8 +31,8 @@ class NewsPage extends React.Component {
 
   changeNews(e) {
     const target = e.target.innerText.toLowerCase().replace(/\s/g, '')
-
-    axios.get(`https://api.nytimes.com/svc/topstories/v2/${target}.json?api-key=WJACAxScK1FNFg15KpU8rxW9ONYaSc4v`)
+    // v
+    axios.get(`https://api.nytimes.com/svc/topstories/v2/${target}.json?api-key=WJACAxScK1FNFg15KpU8rxW9ONYaSc4`)
       .then(response => {
         this.setState({
           mainNews: response.data.results[0],
@@ -47,8 +48,8 @@ class NewsPage extends React.Component {
 
   handleSearch(e) {
     e.preventDefault()
-
-    axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.state.query}&api-key=WJACAxScK1FNFg15KpU8rxW9ONYaSc4v`)
+    // v
+    axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.state.query}&api-key=WJACAxScK1FNFg15KpU8rxW9ONYaSc4`)
       .then(response => {
         const { docs } = response.data.response
 
