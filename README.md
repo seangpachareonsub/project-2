@@ -11,7 +11,7 @@ Making use of the New York Times and CoinGecko public API, Financier functions a
 * **Project Duration:** 48 hours
 * **Work Environment:** Paired project
 
-You can launch the game on [GitHub pages](), or find the [GitHub repository](https://github.com/seangpachareonsub/financier).
+You can launch the game on [GitHub pages](http://seangpachareonsub.com/financier/), or find the [GitHub repository](https://github.com/seangpachareonsub/financier).
 
 #### Technical Requirements:
 * Consume a public API – this could be anything but it must make sense for your project.
